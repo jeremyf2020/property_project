@@ -59,3 +59,30 @@ class CoordinatesTest(TestCase):
         self.assertIn(rg1_2, rg1_1.nearby_sectors.all())
         # Assert 2: as symmetrical=False, RG1 2 should NOT automatically know about RG1 1
         self.assertNotIn(rg1_1, rg1_2.nearby_sectors.all())
+
+    def test_name_validation(self):
+        """
+        Test that valid names pass and invalid names fail.
+        """
+        # Valid Examples (Should pass)
+        valid_sectors = ["RG1 1", "W1A 0", "EC1A 1", "B33 8"]
+        for name in valid_sectors:
+            sector = Coordinates(name=name)
+            try:
+                sector.full_clean()  # Should not raise error
+            except ValidationError:
+                self.fail(f"Valid postcode sector '{name}' failed validation!")
+
+        # Invalid Examples (Should fail)
+        invalid_sectors = [
+            "HELLO",      # No digits
+            "RG1",        # Missing sector digit
+            "RG1 1AA",    # Full postcode (too long)
+            "rg1 1",      # Lowercase (regex expects uppercase)
+            "123 4",      # Starts with number
+        ]
+        
+        for name in invalid_sectors:
+            sector = Coordinates(name=name)
+            with self.assertRaises(ValidationError, msg=f"Invalid '{name}' should have failed"):
+                sector.full_clean()
