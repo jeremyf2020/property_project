@@ -14,6 +14,8 @@ class Coordinates(models.Model):
         )
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
+
+    population = models.IntegerField(default=0)
     
     nearby_sectors = models.ManyToManyField('self', blank=True, symmetrical=False)
 
