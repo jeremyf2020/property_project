@@ -7,4 +7,4 @@ class CoordinatesViewSet(viewsets.ReadOnlyModelViewSet):
     API endpoint that allows Postcode Sectors to be viewed.
     """
     queryset = Coordinates.objects.all().order_by('name')
-    serializer_class = CoordinatesSerializer
+    serializer_class = CoordinatesSerializer 
