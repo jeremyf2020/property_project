@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from api.coordinates.importer import run_coordinate_import
+from api.crimes.importer import run_crime_import
 # from api.sales.importer import run_sales_import
 
 class Command(BaseCommand):
@@ -10,6 +11,10 @@ class Command(BaseCommand):
         {
             'file': 'reading_postcode_sectors.csv',
             'function': run_coordinate_import
+        },
+        {
+            'file': 'detailed_crime_stats.csv',
+            'function': run_crime_import
         },
         # {
         #     'file': 'reading_house_price.csv',

@@ -1,59 +1,42 @@
 from django.test import TestCase
 from api.coordinates.serializers import CoordinatesSerializer
+from api.coordinates.models import Coordinates
+from api.crimes.models import CrimeCategory, SectorCrimeStat
 
 class CoordinatesSerializerTest(TestCase):
     def setUp(self):
-        """
-        Reusable mock neighbor class to keep tests clean.
-        """
-        class MockNeighbor:
-            def __init__(self, name):
-                self.pk = name
-                self.name = name
-            def __str__(self): return self.name
-        self.MockNeighbor = MockNeighbor
+        """ Arrange: create a sector to test with """
+        self.coordinate = Coordinates.objects.create(
+            name="RG1 1",
+            latitude=51.45,
+            longitude=-0.97,
+            population=1000
+        )
 
     def test_serializer_output_basic_fields(self):
         """
         Test that basic fields (name, lat, long, pop) are serialized correctly.
         """
-        class MockCoordinates:
-            def __init__(self):
-                self.name = "RG1 1"
-                self.latitude = 51.45
-                self.longitude = -0.97
-                self.population = 500
-                # Empty neighbors for this test
-                class MockManager:
-                    def all(self): return []
-                self.nearby_sectors = MockManager()
-
-        serializer = CoordinatesSerializer(instance=MockCoordinates())
+        serializer = CoordinatesSerializer(instance=self.coordinate)
         data = serializer.data
 
         self.assertEqual(data['name'], "RG1 1")
-        self.assertEqual(data['population'], 500)
+        self.assertEqual(data['population'], 1000)
         self.assertEqual(data['latitude'], 51.45)
 
     def test_serializer_nearby_sectors_relationship(self):
         """
-        Test specifically that the nearby_sectors relationship is 
-        serialized as a list of primary keys (strings).
+        Test that the nearby_sectors relationship is serialized as a 
+        list of primary keys (strings).
         """
-        class MockCoordinatesWithNeighbors:
-            def __init__(self, neighbor_class):
-                self.name = "RG1 1"
-                self.latitude = 51.45
-                self.longitude = -0.97
-                self.population = 500
-                
-                class MockManager:
-                    def all(self): 
-                        return [neighbor_class("RG1 2"), neighbor_class("RG1 3")]
-                self.nearby_sectors = MockManager()
+        # Create neighbor instances
+        neighbor1 = Coordinates.objects.create(name="RG1 2")
+        neighbor2 = Coordinates.objects.create(name="RG1 3")
+        
+        # Add them to the relationship
+        self.coordinate.nearby_sectors.add(neighbor1, neighbor2)
 
-        obj = MockCoordinatesWithNeighbors(self.MockNeighbor)
-        serializer = CoordinatesSerializer(instance=obj)
+        serializer = CoordinatesSerializer(instance=self.coordinate)
         data = serializer.data
 
         # Verify the list contains the expected primary keys
@@ -75,3 +58,21 @@ class CoordinatesSerializerTest(TestCase):
         
         self.assertFalse(serializer.is_valid())
         self.assertIn('name', serializer.errors)
+
+    def test_coordinates_serializer_includes_total_crimes(self):
+        """
+        Verify that total_crimes correctly aggregates related SectorCrimeStat counts.
+        """
+        # Arrange: create categories and link stats to our existing coordinate
+        cat1 = CrimeCategory.objects.create(name="Theft")
+        cat2 = CrimeCategory.objects.create(name="Drugs")
+
+        SectorCrimeStat.objects.create(sector=self.coordinate, category=cat1, count=10)
+        SectorCrimeStat.objects.create(sector=self.coordinate, category=cat2, count=5)
+
+        # Act: serialize the sector
+        serializer = CoordinatesSerializer(instance=self.coordinate)
+        
+        # Assert: total_crimes should be 15
+        self.assertEqual(serializer.data['total_crimes'], 15)
+        self.assertEqual(len(serializer.data['crime_stats']), 2)

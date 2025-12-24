@@ -47,7 +47,7 @@ def link_all_neighbors(neighbor_map):
         except Coordinates.DoesNotExist:
             continue
 
-def run_coordinate_import(filename='reading_postcode_sectors'):
+def run_coordinate_import(filename='reading_postcode_sectors.csv'):
     """
     Master function to coordinate the process.
     """

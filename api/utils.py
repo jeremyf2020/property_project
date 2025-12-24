@@ -2,7 +2,6 @@ import csv
 import os
 from django.conf import settings
 
-
 def read_csv_generator(filename, folder="data"):
     """
     Generator that yields rows from a CSV file one by one.

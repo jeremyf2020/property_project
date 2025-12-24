@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import RegexValidator
 
 class Coordinates(models.Model):
+    """ Coordinates of UK Postcode Sectors """
     name = models.CharField(
             max_length=20, 
             primary_key=True,
