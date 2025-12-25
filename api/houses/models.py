@@ -1,7 +1,7 @@
 from django.db import models
 from api.coordinates.models import Coordinates
 import re
-from ..utils import extract_sector_from_postcode
+from ..utils import auto_assign_sector, extract_sector_from_postcode
 from django.core.exceptions import ValidationError
 
 class HouseFeatures(models.Model):
@@ -51,24 +51,8 @@ class Address(models.Model):
         unique_together = ('paon', 'saon', 'postcode')
 
     def save(self, *args, **kwargs):
-        """
-        Auto-assign sector coordinate
-        """
-        if not self.postcode:
-            return
-        
-        sector_name = extract_sector_from_postcode(self.postcode)
-        
-        if sector_name:
-            sector_obj = Coordinates.objects.filter(name=sector_name).first()
-            
-            if sector_obj:
-                self.postcode_sector = sector_obj
-            else:
-                raise ValidationError(f"Sector '{sector_name}' not found. Please import Coordinates first.")
-        else:
-            raise ValidationError(f"Invalid postcode format: '{self.postcode}'")
-
+        """ auto-assign the sector """
+        auto_assign_sector(self)
         super().save(*args, **kwargs)
 
     def __str__(self):

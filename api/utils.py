@@ -2,6 +2,8 @@ import csv
 import os
 import re
 from django.conf import settings
+from api.coordinates.models import Coordinates
+from django.core.exceptions import ValidationError
 
 def read_csv_generator(filename, folder="data"):
     """
@@ -45,3 +47,27 @@ def extract_sector_from_postcode(postcode):
         return match.group(1)
     
     return None
+
+def auto_assign_sector(instance):
+    """
+    Shared logic to link any model (Address, School or more) to a Coordinate Sector.
+    """
+    # Checks if postcode exists
+    if not instance.postcode:
+        return
+
+    # Extracts sector (e.g. 'RG1 1AA' -> 'RG1 1')
+    sector_name = extract_sector_from_postcode(instance.postcode)
+    
+    if sector_name:
+        # Database Lookup
+        sector_obj = Coordinates.objects.filter(name=sector_name).first()
+        
+        # Sets instance.postcode_sector
+        if sector_obj:
+            instance.postcode_sector = sector_obj
+        else:
+            # error handling: Raise error if can't map
+            raise ValidationError(f"Sector '{sector_name}' not found. Please import Coordinates first.")
+    else:
+         raise ValidationError(f"Invalid postcode format: '{instance.postcode}'")

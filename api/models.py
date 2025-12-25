@@ -4,3 +4,4 @@ from django.db import models
 from api.coordinates.models import Coordinates
 from api.crimes.models import CrimeCategory, SectorCrimeStat
 from api.houses.models import HouseFeatures, Address, HouseSale
+from api.schools.models import School
