@@ -3,7 +3,7 @@ from django.core.management import call_command
 from api.management.commands.import_all_data import Command
 from django.test import TestCase
 from io import StringIO
-
+import os
 
 class ImportAllDataTest(TestCase):
     def test_io_messages(self):
@@ -38,3 +38,4 @@ class ImportAllDataTest(TestCase):
                 callable(task['function']), 
                 f"Import file: {task['file']} but function is invalid!"
             )
+

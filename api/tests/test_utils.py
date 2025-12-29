@@ -3,9 +3,9 @@ import csv
 import tempfile
 from django.test import TestCase, SimpleTestCase
 from django.conf import settings
-from api.utils import read_csv_generator, extract_sector_from_postcode
+from api.utils import read_csv_generator, extract_sector_from_postcode, clean_decimal, clean_int
 
-class UtilsTest(TestCase):
+class CsvUtilsTest(TestCase):
     def setUp(self):
         # Arrange file path 
         self.data_dir = os.path.join(settings.BASE_DIR, 'data')
@@ -66,3 +66,30 @@ class PostcodeUtilsTest(SimpleTestCase):
         # Empty
         self.assertIsNone(extract_sector_from_postcode(""))
         self.assertIsNone(extract_sector_from_postcode(None))
+
+class UtilsCleaningTest(TestCase):
+    def test_clean_decimal_happy_path(self):
+        """ Test standard valid numbers """
+        self.assertEqual(clean_decimal("45.5"), 45.5)
+        self.assertEqual(clean_decimal(" 100 "), 100.0) # Trimming
+        self.assertEqual(clean_decimal("0.5"), 0.5)
+
+    def test_clean_decimal_formatting(self):
+        """ Test stripping special characters common in CSVs """
+        self.assertEqual(clean_decimal("45.5%"), 45.5)      # Removes %
+        self.assertEqual(clean_decimal("1,250.00"), 1250.0) # Removes comma
+
+    def test_clean_decimal_garbage(self):
+        """ Test the 'dirty' government markers return None without crashing """
+        self.assertIsNone(clean_decimal("SUPP"))   # Suppressed
+        self.assertIsNone(clean_decimal("NE"))     # No Entry
+        self.assertIsNone(clean_decimal("NA"))     # Not Available
+        self.assertIsNone(clean_decimal("DNS"))    # Did Not Sit
+        self.assertIsNone(clean_decimal(""))       # Empty string
+        self.assertIsNone(clean_decimal(None))     # Python None
+
+    def test_clean_int_logic(self):
+        """ Test integer specific wrapper """
+        self.assertEqual(clean_int("1,050"), 1050)
+        self.assertEqual(clean_int("1050.0"), 1050) # Floats to Ints
+        self.assertIsNone(clean_int("SUPP"))

@@ -1,0 +1,69 @@
+﻿URN,LANAME,LA,ESTAB,LAESTAB,SCHNAME,STREET,LOCALITY,ADDRESS3,TOWN,POSTCODE,SCHSTATUS,OPENDATE,CLOSEDATE,MINORGROUP,SCHOOLTYPE,ISPRIMARY,ISSECONDARY,ISPOST16,AGELOW,AGEHIGH,GENDER,RELCHAR,ADMPOL
+109776,Reading,870,2000,8702000,Alfred Sutton Primary School,148 Wokingham Road,,,Reading,RG6 1JR,Open,,,Maintained school,Community school,1,0,0,3,11,Mixed,Does not apply,Not applicable
+109778,Reading,870,2003,8702003,Caversham Primary School,Hemdean Road,Caversham,,Reading,RG4 7RA,Open,,,Maintained school,Community school,1,0,0,5,11,Mixed,Does not apply,Not applicable
+109779,Reading,870,2005,8702005,Coley Primary School,Wolseley Street,,,Reading,RG1 6AZ,Open,,,Maintained school,Community school,1,0,0,3,11,Mixed,Does not apply,Not applicable
+109780,Reading,870,2006,8702006,E P Collier Primary School,Ross Road,,,Reading,RG1 8DZ,Open,,,Maintained school,Community school,1,0,0,3,11,Mixed,Does not apply,Not applicable
+109781,Reading,870,2007,8702007,Geoffrey Field Junior School,Exbourne Road,,,Reading,RG2 8RH,Open,,,Maintained school,Community school,1,0,0,7,11,Mixed,Does not apply,Not applicable
+109782,Reading,870,2008,8702008,Geoffrey Field Infant School,Exbourne Road,Whitley Wood,,Reading,RG2 8RH,Open,,,Maintained school,Community school,1,0,0,3,7,Mixed,Does not apply,Not applicable
+109786,Reading,870,2016,8702016,Oxford Road Community School,146 Oxford Road,,,Reading,RG1 7PJ,Open,,,Maintained school,Community school,1,0,0,3,11,Mixed,Does not apply,Not applicable
+109787,Reading,870,2018,8702018,Redlands Primary School,Lydford Road,,,Reading,RG1 5QH,Open,,,Maintained school,Community school,1,0,0,3,11,Mixed,Does not apply,Not applicable
+109788,Reading,870,2019,8702019,The Hill Primary School,Peppard Road,Emmer Green,,Reading,RG4 8TU,Open,,,Maintained school,Community school,1,0,0,4,11,Mixed,Does not apply,Not applicable
+109789,Reading,870,2020,8702020,The Ridgeway Primary School,Hillbrow,,,Reading,RG2 8JD,Open,,,Maintained school,Community school,1,0,0,3,11,Mixed,Does not apply,Not applicable
+109790,Reading,870,2021,8702021,Park Lane Primary School,School Road,Tilehurst,,Reading,RG31 5BD,Open,,,Maintained school,Community school,1,0,0,5,11,Mixed,Does not apply,Not applicable
+109793,Reading,870,2024,8702024,Wilson Primary School,Wilson Road,,,Reading,RG30 2RW,Open,,,Maintained school,Community school,1,0,0,3,11,Mixed,Does not apply,Not applicable
+109794,Reading,870,2026,8702026,Emmer Green Primary School,Grove Road,Emmer Green,,Reading,RG4 8LN,Open,,,Maintained school,Community school,1,0,0,4,11,Mixed,Does not apply,Not applicable
+109795,Reading,870,2027,8702027,Southcote Primary School,Silchester Road,Southcote,,Reading,RG30 3EJ,Open,,,Maintained school,Community school,1,0,0,4,11,Mixed,Does not apply,Not applicable
+109796,Reading,870,2029,8702029,St Michael's Primary School,Dee Road,Tilehurst,,Reading,RG30 4AS,Open,,,Maintained school,Community school,1,0,0,5,11,Mixed,Does not apply,Not applicable
+109799,Reading,870,2034,8702034,Moorlands Primary School,Church End Lane,Tilehurst,,Reading,RG30 4UN,Open,,,Maintained school,Community school,1,0,0,4,11,Mixed,Does not apply,Not applicable
+109800,Reading,870,2036,8702036,Thameside Primary School,Harley Road,Caversham,,Reading,RG4 8DB,Open,,,Maintained school,Community school,1,0,0,5,11,Mixed,Does not apply,Not applicable
+109920,Reading,870,2226,8702226,Katesgrove Primary School,Dorothy Street,,,Reading,RG1 2NL,Open,,,Maintained school,Community school,1,0,0,3,11,Mixed,Does not apply,Not applicable
+109925,Reading,870,2233,8702233,Caversham Park Primary School,Queensway,Caversham Park Village,,Reading,RG4 6RP,Open,,,Maintained school,Community school,1,0,0,5,11,Mixed,Does not apply,Not applicable
+109926,Reading,870,2234,8702234,Micklands Primary School,Micklands Road,Caversham,,Reading,RG4 6LU,Open,,,Maintained school,Community school,1,0,0,4,11,Mixed,Does not apply,Not applicable
+109944,Reading,870,2253,8702253,Manor Primary School,110 Ashampstead Road,,,Reading,RG30 3LJ,Open,,,Maintained school,Community school,1,0,0,3,11,Mixed,Does not apply,Not applicable
+109945,Reading,870,3000,8703000,All Saints Church of England Aided Infant School,Brownlow Road,,,Reading,RG1 6NP,Open,,,Maintained school,Voluntary aided school,1,0,0,5,7,Mixed,Church of England,Not applicable
+110003,Reading,870,3302,8703302,St Anne's Catholic Primary School,Washington Road,Caversham,St Anne's School,Reading,RG4 5AA,Open,,,Maintained school,Voluntary aided school,1,0,0,2,11,Mixed,Roman Catholic,Not applicable
+110004,Reading,870,3304,8703304,English Martyrs' Catholic Primary School,Dee Road,Tilehurst,,Reading,RG30 4BE,Open,,,Maintained school,Voluntary aided school,1,0,0,3,11,Mixed,Roman Catholic,Not applicable
+110005,Reading,870,3305,8703305,Christ The King Catholic Primary School,Lulworth Road,,,Reading,RG2 8LX,Open,,,Maintained school,Voluntary aided school,1,0,0,3,11,Mixed,Roman Catholic,Not applicable
+110038,Reading,870,3360,8703360,St Martin's Catholic Primary School,Pendennis Avenue,Caversham Park Village,,Reading,RG4 6SS,Open,,,Maintained school,Voluntary aided school,1,0,0,4,11,Mixed,Roman Catholic,Not applicable
+110107,Reading,870,5411,8705411,Blessed Hugh Faringdon Catholic School,Fawley Road,Southcote,,Reading,RG30 3EP,Open,,,Maintained school,Voluntary aided school,0,1,1,11,18,Mixed,Roman Catholic,Non-selective
+110109,Reading,870,6000,8706000,Queen Anne's School,6 Henley Road,Caversham,,Reading,RG4 6DX,Open,,,Independent school,Other independent school,0,1,1,11,19,Girls,Church of England,Selective
+110110,Reading,870,6001,8706001,Leighton Park School,Shinfield Road,,,Reading,RG2 7ED,Open,,,Independent school,Other independent school,0,1,1,11,18,Mixed,Quaker,Selective
+110111,Reading,870,6002,8706002,St Joseph's College,Upper Redlands Road,Reading,Berkshire,,RG1 5JT,Open,,,Independent school,Other independent school,1,1,1,3,18,Mixed,None,Selective
+110112,Reading,870,6003,8706003,Hemdean House School,Hemdean Road,Caversham,,Reading,RG4 7SD,Closed,,12-07-2024,Independent school,Other independent school,1,0,0,4,11,Mixed,None,Non-selective
+110114,Reading,870,6005,8706005,St Edward's Prep,64 Tilehurst Road,Reading,Berkshire,Reading,RG30 2JH,Open,,,Independent school,Other independent school,1,0,0,2,11,Mixed,None,Not applicable
+110165,Reading,870,6008,8706008,The Abbey School Reading,17 Kendrick Road,,,Reading,RG1 5DZ,Open,,,Independent school,Other independent school,1,1,1,3,19,Girls,Christian,Selective
+110177,Reading,870,6009,8706009,Caversham Preparatory School,16 Peppard Road,Caversham,,Reading,RG4 8JZ,Open,,,Independent school,Other independent school,1,0,0,3,11,Mixed,None,Non-selective
+110193,Reading,870,7036,8707036,The Holy Brook School,145 Ashampstead Road,Southcote,,Reading,RG30 3LJ,Open,,,Special school,Community special school,1,0,0,5,11,Mixed,Does not apply,Not applicable
+130247,Reading,870,6905,8706905,John Madejski Academy,125 Hartland Road,,,Reading,RG2 8AF,Closed,,31-12-2024,Academy,Academy sponsor led,0,1,1,11,18,Mixed,Does not apply,Non-selective
+134467,Reading,870,6037,8706037,OneSchool Global Reading Senior Campus,14 Arkwright Road,Reading,,,RG2 0LU,Open,,,Independent school,Other independent school,1,1,1,7,18,Mixed,Plymouth Brethren Christian Church,Non-selective
+135995,Reading,870,6016,8706016,The Deenway Montessori School,3-5 Sidmouth Street,Reading,,,RG1 4QZ,Open,,,Independent school,Other independent school,1,1,0,3,16,Mixed,None,Not applicable
+136307,Reading,870,4020,8704020,Highdown School and Sixth Form Centre,Surley Row,Emmer Green,,Reading,RG4 8LR,Open,,,Academy,Academy converter,0,1,1,11,18,Mixed,None,Non-selective
+136448,Reading,870,5413,8705413,Kendrick School,London Road,,,Reading,RG1 5BN,Open,,,Academy,Academy converter,0,1,1,11,18,Girls,None,Selective
+136449,Reading,870,5401,8705401,Reading School,Erleigh Road,,,Reading,RG1 5LW,Open,,,Academy,Academy converter,0,1,1,11,18,Boys,None,Selective
+136457,Reading,870,2031,8702031,Churchend Primary Academy,Usk Road,Tilehurst,,Reading,RG30 4HP,Open,,,Academy,Academy converter,1,0,0,3,11,Mixed,Does not apply,Not applicable
+136512,Reading,870,3361,8703361,Whitley Park Primary and Nursery School,Brixham Road,,,Reading,RG2 7RB,Open,,,Maintained school,Community school,1,0,0,2,11,Mixed,Does not apply,Not applicable
+136876,Reading,870,5410,8705410,King's Academy Prospect,Cockney Hill,Tilehurst,,Reading,RG30 4EX,Open,,,Academy,Academy converter,0,1,1,11,18,Mixed,None,Non-selective
+137281,Reading,870,2002,8702002,All Saints Junior School,"August House, Brownlow Road",,,Reading,RG1 6NP,Open,,,Academy,Free schools,1,0,0,7,11,Mixed,None,Not applicable
+137435,Reading,870,7001,8707001,The Avenue Special School,"The Avenue Centre, Conwy Close",Tilehurst,,Reading,RG30 4BZ,Open,,,Special school,Academy special converter,1,1,1,2,19,Mixed,Does not apply,Not applicable
+137999,Reading,870,6011,8706011,Red Balloon Learner Centre Reading,220-222 Kings Road,,,Reading,RG1 4JJ,Open,,,Independent school,Other independent school,0,1,1,11,17,Mixed,None,Not applicable
+138372,Reading,870,2004,8702004,Meadow Park Academy,Norcot Road,Tilehurst,,Reading,RG30 6BS,Open,,,Academy,Academy sponsor led,1,0,0,4,11,Mixed,None,Not applicable
+138968,Reading,870,6013,8706013,Trinity Christian School,62 London Road,,,Reading,RG1 5AS,Open,,,Independent school,Other independent school,1,0,0,3,11,Mixed,Christian,Not applicable
+139066,Reading,870,2011,8702011,Battle Primary Academy,Cranbury Road,,,Reading,RG30 2TD,Open,,,Academy,Academy sponsor led,1,0,0,3,11,Mixed,Does not apply,Not applicable
+139268,Reading,870,4000,8704000,UTC Reading,Crescent Road,East Reading,,Reading,RG1 5RQ,Open,,,Academy,University technical college,0,1,1,14,19,Mixed,None,Non-selective
+139653,Reading,870,2012,8702012,The Palmer Primary Academy,70 Northumberland Avenue,,,Reading,RG2 7PP,Open,,,Academy,Academy sponsor led,1,0,0,3,11,Mixed,Does not apply,Not applicable
+139728,Reading,870,7000,8707000,Thames Valley School,2 Conwy Close,Tilehurst,,Reading,RG30 4BZ,Open,,,Special school,Free schools special,1,1,0,4,16,Mixed,Does not apply,Not applicable
+139972,Reading,870,2017,8702017,The Heights Primary School,129 Upper Woodcote Road,,,Reading,RG4 7LB,Open,,,Academy,Free schools,1,0,0,4,11,Mixed,None
+140379,Reading,870,2015,8702015,Civitas Academy,90a Great Knollys Street,,,Reading,RG1 7HL,Open,,,Academy,Academy sponsor led,1,0,0,4,11,Mixed,Does not apply
+141886,Reading,870,4001,8704001,Maiden Erlegh School in Reading,81 Crescent Road,,,Reading,RG1 5SL,Open,,,Academy,Free schools,0,1,0,11,16,Mixed,None,Non-selective
+142072,Reading,870,2025,8702025,Ranikhet Academy,Spey Road,Tilehurst,,Reading,RG30 4ED,Open,,,Academy,Academy sponsor led,1,0,0,3,11,Mixed,Does not apply,Not applicable
+142121,Reading,870,4002,8704002,The WREN School,61-63 Bath Road,,,Reading,RG30 2BB,Open,,,Academy,Free schools,0,1,1,11,19,Mixed,None
+142682,Reading,870,2028,8702028,New Town Primary School,School Terrace,,,Reading,RG1 3LS,Open,,,Academy,Academy sponsor led,1,0,0,3,11,Mixed,Does not apply,Not applicable
+142735,Reading,870,3300,8703300,St John's Church of England Primary School,121-147 Orts Road,Reading,121-147 Orts Road,Reading,RG1 3JN,Open,,,Academy,Academy converter,1,0,0,3,11,Mixed,Church of England,Not applicable
+144610,Reading,870,4003,8704003,Reading Girls' School,Northumberland Avenue,,,Reading,RG2 7PY,Open,,,Academy,Academy sponsor led,0,1,1,11,18,Girls,None,Non-selective
+145660,Reading,870,2254,8702254,New Christ Church Church of England Primary School,Milman Road,,,Reading,RG2 0AY,Open,,,Academy,Academy converter,1,0,0,4,11,Mixed,Church of England,Not applicable
+146275,Reading,870,2035,8702035,St Mary & All Saints Church of England Primary School,Wensley Road,Coley Park,,Reading,RG1 6DU,Open,,,Academy,Academy sponsor led,1,0,0,3,11,Mixed,Church of England,Not applicable
+147675,Reading,870,7002,8707002,Hamilton School,135 Bulmershe Road,,,Reading,RG1 5SG,Open,,,Special school,Academy special sponsor led,0,1,1,11,18,Mixed,Does not apply,Non-selective
+147868,Reading,870,2039,8702039,Green Park Village Primary Academy,2 Flagstaff Road,Green Park,,Reading,RG2 6AX,Open,,,Academy,Free schools,1,0,0,2,11,Mixed,None,Non-selective
+150728,Reading,870,4004,8704004,River Academy,7 Richfield Avenue,,,Reading,RG1 8EQ,Open,01-09-2024,,Academy,Free schools,0,1,1,11,18,Mixed,None,Non-selective
+150898,Reading,870,6018,8706018,Groveside School,40 Christchurch Road,,,Reading,RG2 7AY,Open,11-09-2024,,Special school,Other independent special school,1,1,0,7,16,Mixed,None,Not applicable
+151631,Reading,870,4005,8704005,Hartland High School,125 Hartland Road,,,Reading,RG2 8AF,Open,01-01-2025,,Academy,Academy sponsor led,0,1,1,11,18,Mixed,Does not apply

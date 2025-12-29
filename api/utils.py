@@ -5,6 +5,7 @@ from django.conf import settings
 from api.coordinates.models import Coordinates
 from django.core.exceptions import ValidationError
 
+# ===== CSV Utilities =====
 def read_csv_generator(filename, folder="data"):
     """
     Generator that yields rows from a CSV file one by one.
@@ -19,6 +20,7 @@ def read_csv_generator(filename, folder="data"):
             clean_row = {k.strip(): v.strip() for k, v in row.items() if k}
             yield clean_row
 
+# ===== Postcode Utilities =====
 def extract_sector_from_postcode(postcode):
     """
     Extracts the sector (e.g., 'RG1 1') from a full postcode (e.g., 'RG1 1AF').
@@ -71,3 +73,30 @@ def auto_assign_sector(instance):
             raise ValidationError(f"Sector '{sector_name}' not found. Please import Coordinates first.")
     else:
          raise ValidationError(f"Invalid postcode format: '{instance.postcode}'")
+
+# ===== Data Cleaning Utilities =====
+def clean_decimal(value):
+    """
+    convert ANY string to a float.
+    Handles '45.5%', '1,200', '100'.
+    Returns None for 'SUPP', 'NE', 'NA', or any other text garbage.
+    """
+    if not value:
+        return None
+    
+    try:
+        # Strip whitespace & convert to float
+        clean_val = str(value).replace('%', '').replace(',', '').strip()
+        return float(clean_val)
+    except ValueError:
+        # Anything that can't convert to float returns None
+        return None
+
+def clean_int(value):
+    """
+    Wrapper to get an Integer (e.g. for Number of Pupils).
+    """
+    val = clean_decimal(value)
+    if val is not None:
+        return int(val)
+    return None
