@@ -17,7 +17,11 @@ def read_csv_generator(filename, folder="data"):
     with open(full_path, mode='r', encoding='utf-8-sig') as f:
         reader = csv.DictReader(f)
         for row in reader:
-            clean_row = {k.strip(): v.strip() for k, v in row.items() if k}
+            clean_row = {
+                (k or '').strip(): (v or '').strip() 
+                for k, v in row.items() 
+                if k  # Skip keys that are None (headerless columns)
+            }
             yield clean_row
 
 def check_csv_match(value, target_match):

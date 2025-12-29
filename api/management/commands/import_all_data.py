@@ -4,15 +4,12 @@ from django.core.management.base import BaseCommand
 # --- Imports ---
 from api.coordinates.importer import run_coordinate_import
 from api.crimes.importer import run_crime_import
-
-# from api.schools.importer import (
-#     run_school_base_import,
-#     run_ks2_import_wrapper,
-#     run_ks4_import_wrapper,
-#     run_ks5_import_wrapper,
-#     run_census_population_wrapper,
-#     run_census_absence_wrapper
-# )
+from api.schools.importer import (
+    run_school_base_import,
+    run_ks2_import_wrapper,
+    run_ks4_import_wrapper,
+    run_ks5_import_wrapper,
+)
 
 # --- Decorator 1: Global Lifecycle (Start/End Banners) ---
 def log_command_lifecycle(func):
@@ -70,21 +67,31 @@ class Command(BaseCommand):
 
     @log_command_lifecycle
     def handle(self, *args, **options):
-        pass
         # Define Folders
         base_dir = 'data'
-        school_dir = os.path.join(base_dir, 'school')
-
-        # --- 1. Geography & Crime ---
-        self.run_import("Coordinates", os.path.join(base_dir, 'reading_postcode_sectors.csv'), run_coordinate_import)
-        self.run_import("Crime Stats", os.path.join(base_dir, 'detailed_crime_stats.csv'), run_crime_import)
-
-        # --- 2. Schools Core ---
-        # self.run_import("School Info", os.path.join(school_dir, 'school_information.csv'), run_school_base_import)
-        # self.run_import("Population", os.path.join(school_dir, 'pupil_population.csv'), run_census_population_wrapper)
-        # self.run_import("Absence", os.path.join(school_dir, 'pupil_absence.csv'), run_census_absence_wrapper)
-
-        # # --- 3. Schools Results ---
-        # self.run_import("KS2 Results", os.path.join(school_dir, 'key_stage2.csv'), run_ks2_import_wrapper)
-        # self.run_import("KS4 Results", os.path.join(school_dir, 'key_stage4.csv'), run_ks4_import_wrapper)
-        # self.run_import("KS5 Results", os.path.join(school_dir, 'key_stage5.csv'), run_ks5_import_wrapper)
+        school_dir = os.path.join(base_dir, 'school_data')
+        # --- Geography ---
+        # self.run_import("Coordinates", 'reading_postcode_sectors.csv', run_coordinate_import)
+        # # --- Crime ---
+        # self.run_import("Crime Stats", 'detailed_crime_stats.csv', run_crime_import)
+        # # --- Schools ---
+        self.run_import(
+            "School Info", 
+            os.path.join(school_dir, 'school_information.csv'), 
+            lambda path: run_school_base_import(path, year=2024)
+        )
+        # self.run_import(
+        #     "KS2 Results", 
+        #     os.path.join(school_dir, 'key_stage2.csv'), 
+        #     lambda path: run_ks2_import_wrapper(path, year=2024)
+        # )
+        # self.run_import(
+        #     "KS4 Results", 
+        #     os.path.join(school_dir, 'key_stage4.csv'), 
+        #     lambda path: run_ks4_import_wrapper(path, year=2024)
+        # )
+        # self.run_import(
+        #     "KS5 Results", 
+        #     os.path.join(school_dir, 'key_stage5.csv'), 
+        #     lambda path: run_ks5_import_wrapper(path, year=2024)
+        # )
