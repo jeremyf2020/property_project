@@ -20,6 +20,22 @@ def read_csv_generator(filename, folder="data"):
             clean_row = {k.strip(): v.strip() for k, v in row.items() if k}
             yield clean_row
 
+def check_csv_match(value, target_match):
+    """
+    Checks if a CSV value matches a target string (Case-insensitive, whitespace-safe).
+    
+    Examples:
+        check_csv_match(row.get('ISPRIMARY'), '1')       -> True
+        check_csv_match(row.get('SCHSTATUS'), 'Closed')  -> True
+    """
+    if not value or not target_match:
+        return False
+        
+    val_clean = str(value).strip().lower()
+    target_clean = str(target_match).strip().lower()
+    
+    return val_clean == target_clean
+
 # ===== Postcode Utilities =====
 def extract_sector_from_postcode(postcode):
     """
@@ -100,3 +116,4 @@ def clean_int(value):
     if val is not None:
         return int(val)
     return None
+

@@ -3,7 +3,7 @@ import csv
 import tempfile
 from django.test import TestCase, SimpleTestCase
 from django.conf import settings
-from api.utils import read_csv_generator, extract_sector_from_postcode, clean_decimal, clean_int
+from api.utils import check_csv_match, read_csv_generator, extract_sector_from_postcode, clean_decimal, clean_int
 
 class CsvUtilsTest(TestCase):
     def setUp(self):
@@ -40,6 +40,20 @@ class CsvUtilsTest(TestCase):
         # assert it fails if act on wrong path
         with self.assertRaises(FileNotFoundError):
             list(read_csv_generator(wrong_path))
+
+    def test_check_csv_match(self):
+        # 1. Testing Boolean Flags (The '1' case)
+        self.assertTrue(check_csv_match('1', '1'))
+        self.assertFalse(check_csv_match('0', '1'))
+        
+        # 2. Testing Status Strings (The 'Closed' case)
+        self.assertTrue(check_csv_match('Closed', 'Closed'))
+        self.assertTrue(check_csv_match('closed', 'Closed')) # Case insensitive
+        self.assertFalse(check_csv_match('Open', 'Closed'))
+        
+        # 3. Testing Safety
+        self.assertFalse(check_csv_match(None, '1'))
+        self.assertFalse(check_csv_match('', 'Closed'))
 
 class PostcodeUtilsTest(SimpleTestCase):
     def test_extract_standard_format(self):

@@ -1,67 +1,106 @@
 # from django.test import TestCase
 # from api.coordinates.models import Coordinates
 # from api.schools.models import School, KS2Performance, KS4Performance, KS5Performance
-# from api.schools.importer import process_ks2_row, process_ks4_row, process_ks5_row
+# from api.schools.importer import (
+#     process_school_row, 
+#     process_ks2_row, 
+#     process_ks4_row, 
+#     process_ks5_row
+# )
 
-# class RealDataImportTest(TestCase):
+# class SchoolImporterTest(TestCase):
 #     def setUp(self):
-#         self.sector = Coordinates.objects.create(name="RG1 6")
-#         # Create a school that matches the URN in your CSV snippets
+#         # Create a sector for auto-assign
+#         self.sector = Coordinates.objects.create(name="RG1 1")
+        
+#         # Create a base school for performance tests
 #         self.school = School.objects.create(
-#             urn="125158",  # Matches the KS2 CSV sample
-#             name="St Mary Primary", 
-#             postcode="RG1 6DU",
-#             postcode_sector=self.sector
-#         )
-#         # Create secondary for KS4/5 (Using URN from your KS4 sample)
-#         self.secondary = School.objects.create(
-#             urn="110165", # Matches "The Abbey School Reading"
-#             name="The Abbey",
-#             postcode="RG1 5DZ",
+#             urn="123456", 
+#             name="Test Academy", 
+#             postcode="RG1 1AA", 
 #             postcode_sector=self.sector
 #         )
 
-#     def test_ks2_csv_mapping(self):
-#         """ Test mapping of keys from key_stage2.csv snippet """
-#         # Data taken directly from your paste
+#     # --- 1. Base School Logic Tests ---
+    
+#     def test_school_row_creation(self):
+#         """Test creating a school from a raw CSV row"""
 #         row = {
-#             'URN': '125158',
-#             'PTRWM_EXP': '46%',    # Note the % sign
-#             'READ_AVERAGE': '104',
-#             'MAT_AVERAGE': '102'
+#             'URN': '999001',
+#             'EstablishmentName': 'New Primary School',
+#             'Postcode': 'RG1 1AA',
+#             'PhaseOfEducation (name)': 'Primary',
+#             'StatutoryLowAge': '4',
+#             'StatutoryHighAge': '11',
+#             'EstablishmentStatus (name)': 'Open'
+#         }
+#         process_school_row(row)
+        
+#         # Verify
+#         school = School.objects.get(urn='999001')
+#         self.assertEqual(school.name, 'New Primary School')
+#         self.assertTrue(school.is_primary)
+#         self.assertFalse(school.is_secondary)
+#         self.assertEqual(school.minimum_age, 4)
+
+#     def test_school_closed_logic(self):
+#         """Test that 'Closed' status is captured"""
+#         row = {
+#             'URN': '999002',
+#             'EstablishmentName': 'Closed School',
+#             'Postcode': 'RG1 1AA',
+#             'EstablishmentStatus (name)': 'Closed'
+#         }
+#         process_school_row(row)
+#         self.assertTrue(School.objects.get(urn='999002').is_closed)
+
+#     # --- 2. Performance Logic Tests ---
+
+#     def test_ks2_row_import(self):
+#         """Test KS2 data mapping and cleaning"""
+#         row = {
+#             'URN': '123456',
+#             'PTRWM_EXP': '65.5%', # Includes dirty %
+#             'READ_AVERAGE': '105',
+#             'MAT_AVERAGE': '104'
 #         }
 #         process_ks2_row(row, year=2023)
-
+        
 #         res = KS2Performance.objects.get(school=self.school)
-#         self.assertEqual(float(res.pct_meeting_expected), 46.0)
-#         self.assertEqual(float(res.reading_score), 104.0)
+#         self.assertEqual(float(res.pct_meeting_expected), 65.5)
+#         self.assertEqual(float(res.reading_score), 105.0)
 
-#     def test_ks4_csv_mapping(self):
-#         """ Test mapping of keys from key_stage4.csv snippet """
-#         # Data taken from The Abbey School row
+#     def test_ks4_row_import(self):
+#         """Test KS4 data mapping"""
 #         row = {
-#             'URN': '110165',
-#             'P8MEA': '1.31',  # Progress 8
-#             'ATT8SCR': '83.2' # Attainment 8
+#             'URN': '123456',
+#             'P8MEA': '-0.25',
+#             'ATT8SCR': '45.2'
 #         }
 #         process_ks4_row(row, year=2023)
+        
+#         res = KS4Performance.objects.get(school=self.school)
+#         self.assertEqual(float(res.progress_8), -0.25)
 
-#         res = KS4Performance.objects.get(school=self.secondary)
-#         self.assertEqual(float(res.progress_8), 1.31)
-#         self.assertEqual(float(res.attainment_8), 83.2)
-
-#     def test_ks5_csv_mapping(self):
-#         """ Test mapping of keys from key_stage5.csv snippet """
-#         # Data taken from row 2 (URN 870... let's pretend it matches The Abbey)
+#     def test_ks5_row_import(self):
+#         """Test KS5 data mapping including grades"""
 #         row = {
-#             'URN': '110165',
-#             'TALLPPE_ALEV_1618': '36.86',
-#             'TALLPPEGRD_ALEV_1618': 'B-',
-#             'TALLPPE_ACAD_1618': '37.38',
-#             'TALLPPEGRD_ACAD_1618': 'B-'
+#             'URN': '123456',
+#             'TALLPPE_ALEV_1618': '35.5',
+#             'TALLPPEGRD_ALEV_1618': 'B-', 
+#             'TALLPPEGRD_ACAD_1618': 'SUPP' # Should be cleaned to None
 #         }
 #         process_ks5_row(row, year=2023)
-
-#         res = KS5Performance.objects.get(school=self.secondary)
-#         self.assertEqual(float(res.a_level_points), 36.86)
+        
+#         res = KS5Performance.objects.get(school=self.school)
 #         self.assertEqual(res.a_level_grade, "B-")
+#         self.assertEqual(float(res.a_level_points), 35.5)
+#         self.assertIsNone(res.academic_grade)
+
+#     def test_row_import_missing_urn_skipped(self):
+#         """Ensure rows with unknown URNs are skipped silently"""
+#         row = {'URN': '000000', 'PTRWM_EXP': '50'}
+#         process_ks2_row(row)
+        
+#         # Should be 0 because '000000' school doesn't exist in DB
+#         self.assertEqual(KS2Performance.objects.filter(school__urn='000000').count(), 0)
