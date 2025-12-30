@@ -4,12 +4,14 @@ from django.core.management.base import BaseCommand
 # --- Imports ---
 from api.coordinates.importer import run_coordinate_import
 from api.crimes.importer import run_crime_import
+from api.houses.importer import import_house_sales
 from api.schools.importer import (
     run_school_base_import,
     run_ks2_import_wrapper,
     run_ks4_import_wrapper,
     run_ks5_import_wrapper,
 )
+from core import settings
 
 # --- Decorator 1: Global Lifecycle (Start/End Banners) ---
 def log_command_lifecycle(func):
@@ -68,17 +70,17 @@ class Command(BaseCommand):
     @log_command_lifecycle
     def handle(self, *args, **options):
         # Define Folders
-        base_dir = 'data'
-        school_dir = os.path.join(base_dir, 'school_data')
+        data_dir = os.path.join(settings.BASE_DIR, 'data')
+        school_dir = os.path.join(data_dir, 'school_data')
         # --- Geography ---
         self.run_import(
             "Coordinates", 
-            'reading_postcode_sectors.csv', 
+            os.path.join(data_dir, 'reading_postcode_sectors.csv'), 
             run_coordinate_import)
         # --- Crime ---
         self.run_import(
             "Crime Stats", 
-            'detailed_crime_stats.csv', 
+            os.path.join(data_dir, 'detailed_crime_stats.csv'), 
             run_crime_import)
         # --- Schools ---
         self.run_import(
@@ -100,4 +102,10 @@ class Command(BaseCommand):
             "KS5 Results", 
             os.path.join(school_dir, 'key_stage5.csv'), 
             lambda path: run_ks5_import_wrapper(path, year=2024)
+        )
+        # --- Houses sale record ---
+        self.run_import(
+            "House Sale Records", 
+            os.path.join(data_dir, 'reading_house_sale_record.csv'), 
+            import_house_sales
         )

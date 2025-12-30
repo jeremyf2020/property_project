@@ -29,8 +29,8 @@ class HouseFeatures(models.Model):
     is_new_build = models.BooleanField(default=False)
     transaction_category = models.CharField(max_length=1, choices=TRANSACTION_CATEGORIES, default='A')
 
-    class Meta:
-        unique_together = ('type_code', 'tenure_code', 'is_new_build', 'transaction_category')
+    # class Meta:
+    #     unique_together = ('type_code', 'tenure_code', 'is_new_build', 'transaction_category')
 
     def __str__(self):
         return f"{self.get_type_code_display()} - {self.get_tenure_code_display()}{' (' if self.is_new_build else ' (Not '}New Build)({self.transaction_category})"
@@ -48,12 +48,14 @@ class HouseAddress(models.Model):
     # LINK to postcode_sector Coordinate (use postcode is too large)
     postcode_sector = models.ForeignKey(
         Coordinates, 
-        on_delete=models.CASCADE, 
-        related_name='addresses'
+        on_delete=models.SET_NULL, 
+        related_name='addresses',
+        null=True,
+        blank=True
     )
 
-    class Meta:
-        unique_together = ('paon', 'saon', 'postcode')
+    # class Meta:
+    #     unique_together = ('paon', 'saon', 'postcode')
 
     def save(self, *args, **kwargs):
         """ auto-assign the sector """

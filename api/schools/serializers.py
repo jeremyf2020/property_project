@@ -24,7 +24,47 @@ class SchoolSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = School
-        fields = [
-            'urn', 'name', 'school_type', 'is_closed', 
-            'ks2_results', 'ks4_results', 'ks5_results'
-        ]
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        # --- Helper function to clean lists ---
+        def clean_results(results_list, required_fields):
+            """
+            Keeps a record only if at least ONE of the required_fields has a value.
+            """
+            cleaned = []
+            for item in results_list:
+                # Check if any of the important fields (reading_score, progress_8, etc.) 
+                # is NOT None.
+                has_data = any(item.get(field) is not None for field in required_fields)
+                if has_data:
+                    cleaned.append(item)
+            return cleaned
+
+        # Clean KS2 Results
+        # Keep record only if it has reading OR maths OR pct score
+        cleaned_ks2 = clean_results(data.get('ks2_results', []), ['reading_score', 'maths_score', 'pct_meeting_expected'])
+        if cleaned_ks2:
+            data['ks2_results'] = cleaned_ks2
+        else:
+            data.pop('ks2_results', None)
+
+        # Clean KS4 Results
+        # Keep record only if it has progress OR attainment
+        cleaned_ks4 = clean_results(data.get('ks4_results', []), ['progress_8', 'attainment_8'])
+        if cleaned_ks4:
+            data['ks4_results'] = cleaned_ks4
+        else:
+            data.pop('ks4_results', None)
+
+        # Clean KS5 Results
+        # Keep record only if it has grade OR points
+        cleaned_ks5 = clean_results(data.get('ks5_results', []), ['a_level_grade', 'a_level_points'])
+        if cleaned_ks5:
+            data['ks5_results'] = cleaned_ks5
+        else:
+            data.pop('ks5_results', None)
+
+        return data

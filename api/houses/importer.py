@@ -11,9 +11,6 @@ def get_or_create_address(row):
         paon=row['paon'],
         street=row['street'],
         locality=row['locality'],
-        town=row['town'],
-        district=row['district'],
-        county=row['county'],
         postcode=row['postcode']
     )
     return address
@@ -39,7 +36,6 @@ def create_sale_record(row, address, features, deed_date):
         defaults={
             'price_paid': row['price_paid'],
             'deed_date': deed_date,
-            'linked_data_uri': row.get('linked_data_uri', ''),
             'address': address,
             'features': features
         }
@@ -54,24 +50,22 @@ def import_house_sales(file_path):
     csv_generator = read_csv_generator(file_path)
     
     for row in csv_generator:
-        # 1. Parse Date
+        # Parse Date
         try:
             deed_date = datetime.strptime(row['deed_date'], '%m/%d/%Y').date()
         except (ValueError, TypeError):
             continue
 
-        # 2. Get Features ID/Object
+        # Get IDs
         features = get_or_create_features(row)
-
-        # 3. Get Address ID/Object
         address = get_or_create_address(row)
 
-        # 4. Create Sale Record using the 2 IDs/Objects
+        # Create Sale Record using the 2 IDs
         create_sale_record(row, address, features, deed_date)
         sales_created += 1
         
-        # Print progress every 1000 records
-        if sales_created % 1000 == 0:
+        # Print progress every 200 records
+        if sales_created % 200 == 0:
             print(f"Processed {sales_created} records...")
 
     print(f"Import completed. Total records processed: {sales_created}")
