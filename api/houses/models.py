@@ -18,19 +18,24 @@ class HouseFeatures(models.Model):
         ('O', 'Other'),
     ]
     TENURE_CHOICES = [('F', 'Freehold'), ('L', 'Leasehold')]
+    TRANSACTION_CATEGORIES = [
+        ('A', 'Standard Price Paid Entry'),
+        ('B', 'Additional Price Paid Entry for New Build Properties'),
+    ]
 
     # House characteristics
     type_code = models.CharField(max_length=1, choices=TYPE_CHOICES)
     tenure_code = models.CharField(max_length=1, choices=TENURE_CHOICES)
     is_new_build = models.BooleanField(default=False)
+    transaction_category = models.CharField(max_length=1, choices=TRANSACTION_CATEGORIES, default='A')
 
     class Meta:
-        unique_together = ('type_code', 'tenure_code', 'is_new_build')
+        unique_together = ('type_code', 'tenure_code', 'is_new_build', 'transaction_category')
 
     def __str__(self):
-        return f"{self.get_type_code_display()} - {self.get_tenure_code_display()}{' (' if self.is_new_build else ' (Not '}New Build)"
+        return f"{self.get_type_code_display()} - {self.get_tenure_code_display()}{' (' if self.is_new_build else ' (Not '}New Build)({self.transaction_category})"
 
-class Address(models.Model):
+class HouseAddress(models.Model):
     """
     Stores the permanent physical location.
     """
@@ -63,16 +68,16 @@ class Address(models.Model):
             addr = f"{addr}, {self.locality}" # e.g. "10 High St, Caversham"
         return f"{addr}, {self.postcode}" # e.g. "10 High St, Caversham, RG4 8AA"
     
-class HouseSale(models.Model):
+class HouseSaleRecord(models.Model):
     """
     a specific transaction history for an Address
     """
     unique_id = models.CharField(max_length=100, primary_key=True)
-    price_paid = models.DecimalField(max_digits=12, decimal_places=2)
+    price_paid = models.DecimalField(max_digits=12, decimal_places=0)
     deed_date = models.DateField()
     
     # Relationships
-    address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name='sales')
+    address = models.ForeignKey(HouseAddress, on_delete=models.CASCADE, related_name='sales')
     # PROTECT to avoid deleting features in use (by other sale record)
     features = models.ForeignKey(HouseFeatures, on_delete=models.PROTECT) 
 

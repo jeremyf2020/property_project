@@ -71,27 +71,33 @@ class Command(BaseCommand):
         base_dir = 'data'
         school_dir = os.path.join(base_dir, 'school_data')
         # --- Geography ---
-        # self.run_import("Coordinates", 'reading_postcode_sectors.csv', run_coordinate_import)
-        # # --- Crime ---
-        # self.run_import("Crime Stats", 'detailed_crime_stats.csv', run_crime_import)
-        # # --- Schools ---
+        self.run_import(
+            "Coordinates", 
+            'reading_postcode_sectors.csv', 
+            run_coordinate_import)
+        # --- Crime ---
+        self.run_import(
+            "Crime Stats", 
+            'detailed_crime_stats.csv', 
+            run_crime_import)
+        # --- Schools ---
         self.run_import(
             "School Info", 
             os.path.join(school_dir, 'school_information.csv'), 
             lambda path: run_school_base_import(path, year=2024)
         )
-        # self.run_import(
-        #     "KS2 Results", 
-        #     os.path.join(school_dir, 'key_stage2.csv'), 
-        #     lambda path: run_ks2_import_wrapper(path, year=2024)
-        # )
-        # self.run_import(
-        #     "KS4 Results", 
-        #     os.path.join(school_dir, 'key_stage4.csv'), 
-        #     lambda path: run_ks4_import_wrapper(path, year=2024)
-        # )
-        # self.run_import(
-        #     "KS5 Results", 
-        #     os.path.join(school_dir, 'key_stage5.csv'), 
-        #     lambda path: run_ks5_import_wrapper(path, year=2024)
-        # )
+        self.run_import(
+            "KS2 Results", 
+            os.path.join(school_dir, 'key_stage2.csv'), 
+            lambda path: run_ks2_import_wrapper(path, year=2024)
+        )
+        self.run_import(
+            "KS4 Results", 
+            os.path.join(school_dir, 'key_stage4.csv'), 
+            lambda path: run_ks4_import_wrapper(path, year=2024)
+        )
+        self.run_import(
+            "KS5 Results", 
+            os.path.join(school_dir, 'key_stage5.csv'), 
+            lambda path: run_ks5_import_wrapper(path, year=2024)
+        )
