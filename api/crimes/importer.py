@@ -9,7 +9,6 @@ def run_crime_import(filename):
     for row in read_csv_generator(filename):
         # Extract sector and remove non-normalized fields
         sector_name = row.pop('postcode_sector', None)
-        row.pop('total_crimes', None)
         
         try:
             sector_obj = Coordinates.objects.get(name=sector_name)

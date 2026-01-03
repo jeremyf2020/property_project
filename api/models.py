@@ -5,3 +5,4 @@ from .houses.models import *
 from .crimes.models import *
 from .schools.models import *
 from .coordinates.models import *
+from .transports.models import *

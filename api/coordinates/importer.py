@@ -10,6 +10,7 @@ def parse_coordinate_row(row):
         'latitude': float(row['Latitude']) if row.get('Latitude') and row['Latitude'].strip() else None,
         'longitude': float(row['Longitude']) if row.get('Longitude') and row['Longitude'].strip() else None,
         'population': int(row['Population']) if row.get('Population') and row['Population'].strip() else 0,
+        'households': int(row['Households']) if row.get('Households') and row['Households'].strip() else 0,
         'raw_neighbors': [n.strip() for n in row.get('Nearby Sectors', '').split(',') if n.strip()]
     }
 

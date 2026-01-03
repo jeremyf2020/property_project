@@ -11,6 +11,7 @@ from api.schools.importer import (
     run_ks4_import_wrapper,
     run_ks5_import_wrapper,
 )
+from api.transports.importer import run_transport_import
 from core import settings
 
 # --- Decorator 1: Global Lifecycle (Start/End Banners) ---
@@ -108,4 +109,10 @@ class Command(BaseCommand):
             "House Sale Records", 
             os.path.join(data_dir, 'reading_house_sale_record.csv'), 
             import_house_sales
+        )
+        # --- Transport ---
+        self.run_import(
+            "Transport Stops", 
+            os.path.join(data_dir, 'bus_stops_with_routes.csv'), 
+            run_transport_import
         )
